@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .flashcard-container {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .answer {
+            display: none;
+            font-size: 1rem;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .nav-buttons {
+            margin-top: 20px;
+        }
+
+        .nav-button {
+            margin: 0 10px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="flashcard-container">
+        <div class="question" id="question">O que é JavaScript?</div>
+        <div class="answer" id="answer">JavaScript é uma linguagem de programação usada principalmente para criar interatividade em sites.</div>
+        <button class="button" id="reveal-answer">Mostrar Resposta</button>
+        <div class="nav-buttons">
+            <button class="nav-button" id="prev-card">Anterior</button>
+            <button class="nav-button" id="next-card">Próximo</button>
+        </div>
+    </div>
+
+    <script>
+        // Lista de perguntas e respostas
+        const flashcards = [
+            {
+                question: "O que é JavaScript?",
+                answer: "JavaScript é uma linguagem de programação usada principalmente para criar interatividade em sites."
+            },
+            {
+                question: "O que significa HTML?",
+                answer: "HTML significa HyperText Markup Language, usado para estruturar conteúdo na web."
+            },
+            {
+                question: "Para que serve o CSS?",
+                answer: "CSS é usado para estilizar páginas da web, incluindo cores, layouts e fontes."
+            }
+        ];
+
+        let currentCard = 0;
+
+        const questionEl = document.getElementById("question");
+        const answerEl = document.getElementById("answer");
+        const revealAnswerButton = document.getElementById("reveal-answer");
+        const prevCardButton = document.getElementById("prev-card");
+        const nextCardButton = document.getElementById("next-card");
+
+        // Atualiza o conteúdo do flashcard
+        function updateFlashcard() {
+            questionEl.textContent = flashcards[currentCard].question;
+            answerEl.textContent = flashcards[currentCard].answer;
+            answerEl.style.display = "none";
+        }
+
+        // Mostra a resposta
+        revealAnswerButton.addEventListener("click", () => {
+            answerEl.style.display = "block";
+        });
+
+        // Vai para o flashcard anterior
+        prevCardButton.addEventListener("click", () => {
+            currentCard = (currentCard - 1 + flashcards.length) % flashcards.length;
+            updateFlashcard();
+        });
+
+        // Vai para o próximo flashcard
+        nextCardButton.addEventListener("click", () => {
+            currentCard = (currentCard + 1) % flashcards.length;
+            updateFlashcard();
+        });
+
+        // Inicializa com o primeiro flashcard
+        updateFlashcard();
+    </script>
+</body>
+</html>
